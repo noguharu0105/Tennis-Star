@@ -1,4 +1,5 @@
 import { Player } from "./player.js";
+import { Ball } from "./ball.js";
 
 export class Game {
     constructor(canvas) {
@@ -17,6 +18,12 @@ export class Game {
         this.player = new Player(
             canvas.width / 2 - 15,
             canvas.height - 100
+        );
+
+        // ボールの生成
+        this.ball = new Ball(
+            canvas.width / 2,
+            canvas.height / 2
         );
 
         // キー入力の管理
@@ -56,7 +63,11 @@ export class Game {
 
     // ゲームの更新
     update() {
+        // プレイヤーの移動
         this.player.move(this.keys, this.court);
+
+        // ボールの移動
+        this.ball.move(this.court);
     }
 
     // コートの描画
@@ -117,8 +128,13 @@ export class Game {
             this.canvas.height
         );
 
+        // コート
         this.drawCourt();
 
+        // ボール
+        this.ball.draw(this.ctx);
+
+        // プレイヤー
         this.player.draw(this.ctx);
     }
 
