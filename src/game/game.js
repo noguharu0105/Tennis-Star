@@ -37,21 +37,29 @@ export class Game {
 
     // 操作設定
     setupControls() {
+        // キーを押したとき
         window.addEventListener("keydown", (event) => {
             const key = event.key.toLowerCase();
 
+            // 矢印キー・Spaceキーのスクロール防止
             if (
-                ["arrowup", "arrowdown", "arrowleft", "arrowright"].includes(key)
+                ["arrowup", "arrowdown", "arrowleft", "arrowright"].includes(key) ||
+                event.code === "Space"
             ) {
                 event.preventDefault();
             }
 
             this.keys[key] = true;
+
+            // Spaceキーでボールを発射
+            if (event.code === "Space" && !event.repeat) {
+                this.ball.launch();
+            }
         });
 
+        // キーを離したとき
         window.addEventListener("keyup", (event) => {
             const key = event.key.toLowerCase();
-
             this.keys[key] = false;
         });
 
@@ -68,6 +76,9 @@ export class Game {
 
         // ボールの移動
         this.ball.move(this.court);
+
+        // プレイヤーとの衝突判定
+        this.ball.checkPlayerCollision(this.player);
     }
 
     // コートの描画
@@ -92,7 +103,7 @@ export class Game {
             this.court.bottom - this.court.top
         );
 
-        // コートのライン
+        // コートの外枠
         ctx.strokeStyle = "#ffffff";
         ctx.lineWidth = 3;
 
