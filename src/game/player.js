@@ -21,20 +21,20 @@ export class Player {
         let dy = 0;
 
         // 左右移動
-        if (keys["ArrowLeft"] || keys["a"]) {
+        if (keys["arrowleft"] || keys["a"]) {
             dx -= 1;
         }
 
-        if (keys["ArrowRight"] || keys["d"]) {
+        if (keys["arrowright"] || keys["d"]) {
             dx += 1;
         }
 
         // 上下移動
-        if (keys["ArrowUp"] || keys["w"]) {
+        if (keys["arrowup"] || keys["w"]) {
             dy -= 1;
         }
 
-        if (keys["ArrowDown"] || keys["s"]) {
+        if (keys["arrowdown"] || keys["s"]) {
             dy += 1;
         }
 
